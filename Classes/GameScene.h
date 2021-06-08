@@ -18,15 +18,15 @@ public:
     CREATE_FUNC(GameScene);
 
 private:
-    void SetPhysicsWorld(cocos2d::PhysicsWorld* world) { sceneWorld = world; };
+    void setPhysicsWorld(cocos2d::PhysicsWorld* world) { sceneWorld = world; };
 
-    void SpawnPipe(float dt);
+    void spawnPipe(float dt);
 
     bool onContactBegin(cocos2d::PhysicsContact& contact);
 
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
 
-    void StopFlying(float dt);
+    void stopFlying(float dt);
     void update(float dt);
 
     cocos2d::PhysicsWorld* sceneWorld;
@@ -35,9 +35,9 @@ private:
 
     Bird* bird;
 
-    unsigned int score;
+    unsigned int _score;
 
-    cocos2d::Label* scoreLable;
+    cocos2d::Label* _scoreLable;
 };
 
 #endif // __GAME_SCENE_H__

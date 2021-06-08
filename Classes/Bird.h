@@ -7,14 +7,14 @@ class Bird
 {
 public:
 	Bird(cocos2d::Layer *layer);
-	void Fall();
-	void Fly() { CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Wing.mp3") ;
+	void fall();
+	void fly() { CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Wing.mp3") ;
 	isFalling = false; };
-	void StopFlying() { isFalling = true;}
+	void stopFlying() { isFalling = true;}
 
 private:
-	cocos2d::Size visibleSize;
-	cocos2d::Vec2 origin;
+	cocos2d::Size _visibleSize;
+	cocos2d::Vec2 _origin;
 
 	cocos2d::Sprite* flappyBird;
 

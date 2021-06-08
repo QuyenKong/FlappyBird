@@ -42,12 +42,12 @@ bool GameOverScene::init()
     this->addChild(backgroundSprite);
 
     auto retryItem = MenuItemImage::create("ipadhd/Retry Button.png", "ipadhd/Retry Button Clicked.png",
-        CC_CALLBACK_1(GameOverScene::GoToGameScene, this));
+        CC_CALLBACK_1(GameOverScene::goToGameScene, this));
     retryItem->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 4 * 3));
 
 
     auto mainMenuItem = MenuItemImage::create("ipadhd/Menu Button.png", "ipadhd/Menu Button Clicked.png",
-        CC_CALLBACK_1(GameOverScene::GoToMainMenuScene, this));
+        CC_CALLBACK_1(GameOverScene::goToMainMenuScene, this));
     mainMenuItem->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 4 ));
 
     auto menu = Menu::create(retryItem, mainMenuItem,NULL);
@@ -87,14 +87,14 @@ bool GameOverScene::init()
     return true;
 }
 
-void GameOverScene::GoToMainMenuScene(cocos2d::Ref *sender) {
+void GameOverScene::goToMainMenuScene(cocos2d::Ref *sender) {
     auto scene = MainMenuScene::createScene();
 
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 
-void GameOverScene::GoToGameScene(cocos2d::Ref *sender) {
+void GameOverScene::goToGameScene(cocos2d::Ref *sender) {
     auto scene = GameScene::createScene();
 
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));

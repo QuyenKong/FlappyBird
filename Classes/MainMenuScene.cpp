@@ -44,7 +44,7 @@ bool MainMenuScene::init()
 
     auto playItem = MenuItemImage::create("ipadhd/Play Button.png", 
         "ipadhd/Play Button Clicked.png",
-        CC_CALLBACK_1(MainMenuScene::GoToGameScene, this));
+        CC_CALLBACK_1(MainMenuScene::goToGameScene, this));
     playItem->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
     auto menu = Menu::create(playItem, NULL);
@@ -53,7 +53,7 @@ bool MainMenuScene::init()
     
     return true;
 }
-void MainMenuScene::GoToGameScene(cocos2d::Ref* sender) {
+void MainMenuScene::goToGameScene(cocos2d::Ref* sender) {
     auto scene = GameScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }

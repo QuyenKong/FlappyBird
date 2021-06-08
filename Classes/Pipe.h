@@ -10,8 +10,8 @@ public:
 	void SpawnPipe(cocos2d::Layer *layer);
 	
 private:
-	cocos2d::Size visibleSize;
-	cocos2d::Vec2 origin;
+	cocos2d::Size _visibleSize;
+	cocos2d::Vec2 _origin;
 };
 
 #endif // __PiPe_H__

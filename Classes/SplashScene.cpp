@@ -37,7 +37,7 @@ bool SplashScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    this->scheduleOnce( schedule_selector( SplashScene::GoToMainMenuSence ), DISPLAY_TIME_SPLASH_SENCE);
+    this->scheduleOnce( schedule_selector( SplashScene::goToMainMenuSence ), DISPLAY_TIME_SPLASH_SENCE);
 
     auto backgroundSprite = Sprite::create("ipadhd/Splash Screen.png");
     backgroundSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
@@ -46,7 +46,7 @@ bool SplashScene::init()
     return true;
 }
 
-void SplashScene::GoToMainMenuSence(float dt) {
+void SplashScene::goToMainMenuSence(float dt) {
     auto sence = MainMenuScene::createScene();
     Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, sence));
 }

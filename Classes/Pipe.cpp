@@ -5,8 +5,8 @@ USING_NS_CC;
 
 Pipe::Pipe()
 {
-    visibleSize = Director::getInstance()->getVisibleSize();
-    origin = Director::getInstance()->getVisibleOrigin();
+    _visibleSize = Director::getInstance()->getVisibleSize();
+    _origin = Director::getInstance()->getVisibleOrigin();
 }
 
 void Pipe::SpawnPipe(cocos2d::Layer* layer)
@@ -30,7 +30,7 @@ void Pipe::SpawnPipe(cocos2d::Layer* layer)
         random = UPPER_SCREEN_PIPE_THRESHOLD;
     }
 
-    auto topPipePosition = (random * visibleSize.height) + (topPipe->getContentSize().height / 2);
+    auto topPipePosition = (random * _visibleSize.height) + (topPipe->getContentSize().height / 2);
 
     topPipeBody->setDynamic(false);
     bottomPipeBody->setDynamic(false);
@@ -43,14 +43,14 @@ void Pipe::SpawnPipe(cocos2d::Layer* layer)
     topPipe->setPhysicsBody(topPipeBody);
     bottomPipe->setPhysicsBody(bottomPipeBody);
 
-    topPipe->setPosition(Point(visibleSize.width + topPipe->getContentSize().width + origin.x, topPipePosition));
+    topPipe->setPosition(Point(_visibleSize.width + topPipe->getContentSize().width + _origin.x, topPipePosition));
     bottomPipe->setPosition(Point(topPipe->getPositionX(), topPipePosition - 150 - topPipe->getContentSize().height));
 
     layer->addChild(topPipe);
     layer->addChild(bottomPipe);
 
-    auto topPipeAction = MoveBy::create(PIPE_MOVEMENT_SPEED * visibleSize.width, Point(-visibleSize.width * 1.5, 0));
-    auto bottomPipeAction = MoveBy::create(PIPE_MOVEMENT_SPEED * visibleSize.width, Point(-visibleSize.width * 1.5, 0));
+    auto topPipeAction = MoveBy::create(PIPE_MOVEMENT_SPEED * _visibleSize.width, Point(-_visibleSize.width * 1.5, 0));
+    auto bottomPipeAction = MoveBy::create(PIPE_MOVEMENT_SPEED * _visibleSize.width, Point(-_visibleSize.width * 1.5, 0));
 
     topPipe->runAction(topPipeAction);
     bottomPipe->runAction(bottomPipeAction);
@@ -67,7 +67,7 @@ void Pipe::SpawnPipe(cocos2d::Layer* layer)
 
     layer->addChild(pointNode);
 
-    auto pointNodeAction = MoveBy::create(PIPE_MOVEMENT_SPEED * visibleSize.width, Point(-visibleSize.width * 1.5, 0));
+    auto pointNodeAction = MoveBy::create(PIPE_MOVEMENT_SPEED * _visibleSize.width, Point(-_visibleSize.width * 1.5, 0));
 
     pointNode->runAction(pointNodeAction);
 }

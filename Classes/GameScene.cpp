@@ -15,7 +15,7 @@ Scene* GameScene::createScene()
     
     // 'layer' is an autorelease object
     auto layer = GameScene::create();
-    layer->SetPhysicsWorld(scene->getPhysicsWorld());
+    layer->setPhysicsWorld(scene->getPhysicsWorld());
 
 
     // add layer as a child to scene
@@ -55,7 +55,7 @@ bool GameScene::init()
 
     this->addChild(edgeNode);
 
-    this->schedule(schedule_selector(GameScene::SpawnPipe), PIPE_SPAWN_FREQUENCY *visibleSize.width);   
+    this->schedule(schedule_selector(GameScene::spawnPipe), PIPE_SPAWN_FREQUENCY *visibleSize.width);   
 
     bird = new Bird(this);
 
@@ -75,22 +75,22 @@ bool GameScene::init()
     touchListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
     
-    score = 0;  
+    _score = 0;  
 
-    __String* tempScore = __String::createWithFormat("%i",score );
+    __String* tempScore = __String::createWithFormat("%i",_score );
 
-    scoreLable = Label::createWithTTF(tempScore->getCString(), "fonts/Marker Felt.ttf", visibleSize.height * SCORE_FONT_SIZE);
-    scoreLable->setColor(Color3B::WHITE);
-    scoreLable->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height * 0.75 + origin.y));
+    _scoreLable = Label::createWithTTF(tempScore->getCString(), "fonts/Marker Felt.ttf", visibleSize.height * SCORE_FONT_SIZE);
+    _scoreLable->setColor(Color3B::WHITE);
+    _scoreLable->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height * 0.75 + origin.y));
 
-    this->addChild(scoreLable);
+    this->addChild(_scoreLable);
 
 
     this->scheduleUpdate();
 
     return true;
 }
-void GameScene::SpawnPipe(float dt) {
+void GameScene::spawnPipe(float dt) {
     pipe.SpawnPipe(this);
 }
 bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
@@ -102,7 +102,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     {
         CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Hit.mp3");
 
-        auto scene = GameOverScene::createScene(score);
+        auto scene = GameOverScene::createScene(_score);
         Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
     }
     else if ((BIRD_COLLISION_BITMASK == a->getCollisionBitmask() && POINT_COLLISION_BITMASK == b->getCollisionBitmask()) ||
@@ -110,9 +110,9 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     {
         CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sounds/Point.mp3");
 
-        score++;
-        __String* tempScore = __String::createWithFormat("%i", score);
-        scoreLable->setString(tempScore->getCString());
+        _score++;
+        __String* tempScore = __String::createWithFormat("%i", _score);
+        _scoreLable->setString(tempScore->getCString());
     }
     return true;
 }
@@ -124,18 +124,18 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
 //
 //}
 bool GameScene::onTouchBegan(cocos2d::Touch*, cocos2d::Event*) {
-    bird->Fly();
+    bird->fly();
 
-    this->scheduleOnce(schedule_selector(GameScene::StopFlying), BIRD_FLY_DURATION);
+    this->scheduleOnce(schedule_selector(GameScene::stopFlying), BIRD_FLY_DURATION);
 
     return true;
 }
 
 
-void GameScene::StopFlying(float dt) {
-    bird->StopFlying();
+void GameScene::stopFlying(float dt) {
+    bird->stopFlying();
 }
 
 void GameScene::update(float dt) {
-    bird->Fall();
+    bird->fall();
 }
