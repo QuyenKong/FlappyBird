@@ -6,32 +6,30 @@ USING_NS_CC;
 
 Bird::Bird( cocos2d::Layer *layer)
 {
-	visibleSize = Director::getInstance()->getVisibleSize();
-	origin = Director::getInstance()->getVisibleOrigin();
+	_visibleSize = Director::getInstance()->getVisibleSize();
+	_origin = Director::getInstance()->getVisibleOrigin();
 
 	flappyBird = Sprite::create("ipadhd/Ball.png");
-	flappyBird->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	flappyBird->setPosition(Point(_visibleSize.width / 2 + _origin.x, _visibleSize.height / 2 + _origin.y));
 
 	auto flappyBody = PhysicsBody::createCircle(flappyBird->getContentSize().width/2 );
 	flappyBody->setCollisionBitmask(BIRD_COLLISION_BITMASK);
 	flappyBody->setContactTestBitmask(true);
-
-
-	flappyBird->setPhysicsBody(flappyBody);
+		flappyBird->setPhysicsBody(flappyBody);
 
 	layer->addChild(flappyBird, 100);
 
 	isFalling = true;
 }
 
-void Bird::Fall() {
+void Bird::fall() {
 	if (true == isFalling) {
-		flappyBird->setPositionX(visibleSize.width / 2 + origin.x);
-		flappyBird->setPositionY(flappyBird->getPositionY() - (BIRD_FALLING_SPEED * visibleSize.height));
+		flappyBird->setPositionX(_visibleSize.width / 2 + _origin.x);
+		flappyBird->setPositionY(flappyBird->getPositionY() - (BIRD_FALLING_SPEED * _visibleSize.height));
 	}
 	else
 	{
-		flappyBird->setPositionX(visibleSize.width / 2 + origin.x);
-		flappyBird->setPositionY(flappyBird->getPositionY() + (BIRD_FALLING_SPEED * visibleSize.height));
+		flappyBird->setPositionX(_visibleSize.width / 2 + _origin.x);
+		flappyBird->setPositionY(flappyBird->getPositionY() + (BIRD_FALLING_SPEED * _visibleSize.height));
 	}
 }
